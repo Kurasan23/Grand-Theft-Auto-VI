@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Theft Auto VI</title>
+    <style>
+        :root {
+            --bg-color: #0b0512;
+            --card-bg: #160d24;
+            --neon-pink: #ff007f;
+            --neon-blue: #00f0ff;
+            --text-color: #ffffff;
+            --text-muted: #b3a2c7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(22, 13, 36, 0.9), rgba(11, 5, 18, 0.9));
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--neon-pink);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            color: var(--neon-pink);
+        }
+
+        /* Стили для выбора языка */
+        .lang-select {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--neon-blue);
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            font-weight: bold;
+        }
+
+        .lang-select option {
+            background-color: var(--bg-color);
+        }
+
+        .hero {
+            padding: 100px 20px;
+            text-align: center;
+            background: radial-gradient(circle at center, #25123e 0%, var(--bg-color) 70%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, var(--neon-pink), #bc00dd);
+            color: white;
+            padding: 15px 40px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 127, 0.8);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            border-left: 5px solid var(--neon-blue);
+            padding-left: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .info-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: border-color 0.3s;
+        }
+
+        .info-card:hover {
+            border-color: var(--neon-blue);
+        }
+
+        .info-card h3 {
+            color: var(--neon-blue);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .price-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card.featured {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.2);
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background-color: var(--neon-pink);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .price-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .cost {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .cost span {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+        }
+
+        .features-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 35px;
+            color: var(--text-muted);
+        }
+
+        .features-list li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .features-list li::before {
+            content: "✓";
+            color: var(--neon-blue);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .note-box {
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid var(--neon-pink);
+        }
+
+        footer {
+            background-color: #07030c;
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">GTA VI Info</div>
+        <div class="header-right">
+            <nav>
+                <a href="#about" id="nav-about">Об игре</a>
+                <a href="#details" id="nav-details">Детали</a>
+                <a href="#editions" id="nav-editions">Цены</a>
+            </nav>
+            <select class="lang-select" onchange="changeLanguage(this.value)">
+                <option value="ru">RU</option>
+                <option value="en">EN</option>
+                <option value="de">DE</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1 id="hero-title">Grand Theft Auto VI</h1>
+        <p id="hero-desc">Добро пожаловать обратно в Вайс-Сити. Самый масштабный и проработанный открытый мир в истории видеоигр от Rockstar Games.</p>
+        <a href="#editions" class="cta-btn" id="hero-btn">Оформить предзаказ</a>
+    </div>
+
+    <div class="container">
+        
+        <section id="about">
+            <h2 id="sect-release">Официальная дата выхода</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3 id="card-rel-title">Мировой релиз</h3>
+                    <p id="card-rel-desc">Официальный выход игры назначен на <strong>19 ноября 2026 года</strong>. Переносов больше не планируется, игра ушла на финальную полировку.</p>
+                </div>
+                <div class="info-card">
+                    <h3 id="card-plat-title">Платформы</h3>
+                    <p id="card-plat-desc">На старте игра будет доступна эксклюзивно на консолях текущего поколения: <strong>PlayStation 5</strong> и <strong>Xbox Series X|S</strong>. Версия для ПК ожидается позже.</p>
+                </div>
+                <div class="info-card">
+                    <h3 id="card-load-title">Предзагрузка</h3>
+                    <p id="card-load-desc">Цифровая предзагрузка файлов начнется <strong>12 ноября 2026 года</strong>, чтобы вы могли начать играть ровно в полночь в день релиза.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="details">
+            <h2 id="sect-features">Главные особенности игры</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3 id="feat-heroes-title">Два главных героя</h3>
+                    <p id="feat-heroes-desc">Впервые в серии одним из протагонистов станет женщина. История расскажет о дуэте Люсии и Джейсона, чьи судьбы вдохновлены историей Бонни и Клайда.</p>
+                </div>
+                <div class="info-card">
+                    <h3 id="feat-map-title">Штат Леонида</h3>
+                    <p id="feat-map-desc">Действие развернется в вымышленном штате Леонида (прототип Флориды). Нас ждет не только обновленный неоновый Вайс-Сити, но и пригороды, пляжи, болота и соседние города.</p>
+                </div>
+                <div class="info-card">
+                    <h3 id="feat-tech-title">Невероятный реализм</h3>
+                    <p id="feat-tech-desc">Новая версия движка RAGE обеспечивает фотореалистичную графику, продвинутый искусственный интеллект прохожих и полноценную симуляцию социальных сетей внутри игры.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="editions">
+            <h2 id="sect-prices">Цены и доступные издания</h2>
+            <div class="price-grid">
+                
+                <div class="price-card">
+                    <h3>Standard Edition</h3>
+                    <div class="cost">$79.99 <span>/ 79,99 €</span></div>
+                    <ul class="features-list">
+                        <li id="std-f1">Полная базовая игра GTA VI</li>
+                        <li id="std-f2">Доступ к сюжетной кампании</li>
+                        <li id="std-f3">Бонус предзаказа: Комплект "Vintage Vice City Pack"</li>
+                        <li id="std-f4">1 месяц подписки GTA+</li>
+                    </ul>
+                    <a href="#" class="cta-btn" style="background: transparent; border: 2px solid var(--neon-blue); box-shadow: none;" id="btn-buy-std">Купить Standard</a>
+                </div>
+
+                <div class="price-card featured">
+                    <div class="badge" id="badge-hit">Хит</div>
+                    <h3>Ultimate Edition</h3>
+                    <div class="cost">$99.99 <span>/ 99,99 €</span></div>
+                    <ul class="features-list">
+                        <li id="ult-f1">Все бонусы стандартного издания</li>
+                        <li id="ult-f2">Эксклюзивные автомобили ('95 Grotti Cheetah)</li>
+                        <li id="ult-f3">Уникальное оружие и кастомизация</li>
+                        <li id="ult-f4">Дополнительная одежда и татуировки</li>
+                        <li id="ult-f5">Доступ к закрытым магазинам в игре</li>
+                    </ul>
+                    <a href="#" class="cta-btn" id="btn-buy-ult">Купить Ultimate</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2 id="sect-note-title">Важное примечание к физическим изданиям</h2>
+            <p class="note-box" id="sect-note-desc">
+                В связи с современными трендами, дисковые версии игры в розничных магазинах <strong>не будут содержать физического диска</strong>. Внутри коробки покупатели найдут ваучер с цифровым кодом активации для выбранной консоли. Это сделано для предотвращения досрочных утечек спойлеров.
+            </p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p id="footer-text">&copy; 2026 Информационный фан-сайт GTA VI. Все права на торговые марки принадлежат Rockstar Games.</p>
+    </footer>
+
+    <script>
+        const translations = {
+            ru: {
+                navAbout: "Об игре", navDetails: "Детали", navEditions: "Цены",
+                heroTitle: "Grand Theft Auto VI", heroDesc: "Добро пожаловать обратно в Вайс-Сити. Самый масштабный и проработанный открытый мир в истории видеоигр от Rockstar Games.", heroBtn: "Оформить предзаказ",
+                sectRelease: "Официальная дата выхода", cardRelTitle: "Мировой релиз", cardRelDesc: "Официальный выход игры назначен на <strong>19 ноября 2026 года</strong>. Переносов больше не планируется, игра ушла на финальную полировку.",
+                cardPlatTitle: "Платформы", cardPlatDesc: "На старте игра будет доступна эксклюзивно на консолях текущего поколения: <strong>PlayStation 5</strong> и <strong>Xbox Series X|S</strong>. Версия для ПК ожидается позже.",
+                cardLoadTitle: "Предзагрузка", cardLoadDesc: "Цифровая предзагрузка файлов начнется <strong>12 ноября 2026 года</strong>, чтобы вы могли начать играть ровно в полночь в день релиза.",
+                sectFeatures: "Главные особенности игры", featHeroesTitle: "Два главных героя", featHeroesDesc: "Впервые в серии одним из протагонистов станет женщина. История расскажет о дуэте Люсии и Джейсона, чьи судьбы вдохновлены историей Бонни и Клайда.",
+                featMapTitle: "Штат Леонида", featMapDesc: "Действие развернется в вымышленном штате Леонида (прототип Флориды). Нас ждет не только обновленный неоновый Вайс-Сити, но и пригороды, пляжи, болота и соседние города.",
+                featTechTitle: "Невероятный реализм", featTechDesc: "Новая версия движка RAGE обеспечивает фотореалистичную графику, продвинутый искусственный интеллект прохожих и полноценную симуляцию социальных сетей внутри игры.",
+                sectPrices: "Цены и доступные издания", badgeHit: "Хит", btnBuyStd: "Купить Standard", btnBuyUlt: "Купить Ultimate",
+                stdF1: "Полная базовая игра GTA VI", stdF2: "Доступ к сюжетной кампании", stdF3: "Бонус предзаказа: Комплект \"Vintage Vice City Pack\"", stdF4: "1 месяц подписки GTA+",
+                ultF1: "Все бонусы стандартного издания", ultF2: "Эксклюзивные автомобили ('95 Grotti Cheetah)", ultF3: "Уникальное оружие и кастомизация", ultF4: "Дополнительная одежда и татуировки", ultF5: "Доступ к закрытым магазинам в игре",
+                sectNoteTitle: "Важное примечание к физическим изданиям", sectNoteDesc: "В связи с современными трендами, дисковые версии игры в розничных магазинах <strong>не будут содержать физического диска</strong>. Внутри коробки покупатели найдут ваучер с цифровым кодом активации для выбранной консоли. Это сделано для предотвращения досрочных утечек спойлеров.",
+                footerText: "© 2026 Информационный фан-сайт GTA VI. Все права на торговые марки принадлежат Rockstar Games."
+            },
+            en: {
+                navAbout: "About", navDetails: "Details", navEditions: "Prices",
+                heroTitle: "Grand Theft Auto VI", heroDesc: "Welcome back to Vice City. The most massive and detailed open world in video game history from Rockstar Games.", heroBtn: "Pre-order Now",
+                sectRelease: "Official Release Date", cardRelTitle: "Global Release", cardRelDesc: "The official release is set for <strong>November 19, 2026</strong>. No more delays are planned, the game is in final polishing.",
+                cardPlatTitle: "Platforms", cardPlatDesc: "At launch, the game will be exclusively available on current-gen consoles: <strong>PlayStation 5</strong> and <strong>Xbox Series X|S</strong>. PC version expected later.",
+                cardLoadTitle: "Pre-load", cardLoadDesc: "Digital pre-loading will begin on <strong>November 12, 2026</strong>, so you can start playing right at midnight on release day.",
+                sectFeatures: "Key Features", featHeroesTitle: "Two Protagonists", featHeroesDesc: "For the first time in the series, one of the main characters is a woman. The story follows Lucia and Jason, inspired by Bonnie and Clyde.",
+                featMapTitle: "State of Leonida", featMapDesc: "Set in the fictional state of Leonida (Florida prototype). Expect an updated neon Vice City, suburbs, beaches, swamps, and neighboring towns.",
+                featTechTitle: "Next-Gen Realism", featTechDesc: "The new version of the RAGE engine provides photorealistic graphics, advanced pedestrian AI, and full in-game social media simulation.",
+                sectPrices: "Editions & Prices", badgeHit: "Best", btnBuyStd: "Buy Standard", btnBuyUlt: "Buy Ultimate",
+                stdF1: "Full GTA VI Base Game", stdF2: "Access to the story campaign", stdF3: "Pre-order Bonus: \"Vintage Vice City Pack\"", stdF4: "1 Month of GTA+ Membership",
+                ultF1: "All Standard Edition bonuses", ultF2: "Exclusive vehicles ('95 Grotti Cheetah)", ultF3: "Unique weapons and customization", ultF4: "Bonus clothing and tattoos", ultF5: "Access to exclusive in-game shops",
+                sectNoteTitle: "Important Note on Physical Editions", sectNoteDesc: "Due to modern trends, retail box versions <strong>will not contain a physical disc</strong>. Inside the box, buyers will find a digital activation code for their console. This prevents early spoiler leaks.",
+                footerText: "© 2026 GTA VI Fan Info Site. All trademarks belong to Rockstar Games."
+            },
+            de: {
+                navAbout: "Über das Spiel", navDetails: "Details", navEditions: "Preise",
+                heroTitle: "Grand Theft Auto VI", heroDesc: "Willkommen zurück in Vice City. Die größte und detaillierteste offene Welt der Videospielgeschichte von Rockstar Games.", heroBtn: "Jetzt vorbestellen",
+                sectRelease: "Offizielles Erscheinungsdatum", cardRelTitle: "Weltweiter Release", cardRelDesc: "Der offizielle Release ist für den <strong>19. November 2026</strong> geplant. Keine weiteren Verzögerungen, das Spiel wird final optimiert.",
+                cardPlatTitle: "Plattformen", cardPlatDesc: "Zum Launch wird das Spiel exklusiv für Next-Gen-Konsolen erhältlich sein: <strong>PlayStation 5</strong> und <strong>Xbox Series X|S</strong>. PC-Version folgt später.",
+                cardLoadTitle: "Pre-load", cardLoadDesc: "Der digitale Pre-load beginnt am <strong>12. November 2026</strong>, sodass Sie pünktlich um Mitternacht am Release-Tag spielen können.",
+                sectFeatures: "Hauptmerkmale", featHeroesTitle: "Zwei Protagonisten", featHeroesDesc: "Zum ersten Mal in der Serie ist einer der Hauptcharaktere eine Frau. Die Geschichte folgt Lucia und Jason, inspiriert von Bonnie und Clyde.",
+                featMapTitle: "Staat Leonida", featMapDesc: "Spielt im fiktiven Staat Leonida (Prototyp Florida). Erwarten Sie ein neues neonfarbenes Vice City, Vororte, Strände, Sümpfe und Nachbarstädte.",
+                featTechTitle: "Nächste Stufe Realismus", featTechDesc: "Die neue Version der RAGE-Engine bietet fotorealistische Grafiken, fortschrittliche Fußgänger-KI und eine vollständige In-Game-Social-Media-Simulation.",
+                sectPrices: "Editionen & Preise", badgeHit: "Hit", btnBuyStd: "Standard kaufen", btnBuyUlt: "Ultimate kaufen",
+                stdF1: "Vollständiges GTA VI Basisspiel", stdF2: "Zugang zur Story-Kampagne", stdF3: "Vorbestellerbonus: \"Vintage Vice City Pack\"", stdF4: "1 Monat GTA+ Mitgliedschaft",
+                ultF1: "Alle Boni der Standard Edition", ultF2: "Exklusive Fahrzeuge ('95 Grotti Cheetah)", ultF3: "Einzigartige Waffen und Anpassungen", ultF4: "Zusätzliche Kleidung und Tattoos", ultF5: "Zugang zu exklusiven In-Game-Shops",
+                sectNoteTitle: "Wichtiger Hinweis zu physischen Editionen", sectNoteDesc: "Aufgrund moderner Trends werden Box-Versionen im Handel <strong>keine physische Disc enthalten</strong>. Käufer finden in der Box einen digitalen Aktivierungscode für ihre Konsole. Dies verhindert vorzeitige Spoiler-Leaks.",
+                footerText: "© 2026 GTA VI Fan-Infoseite. Alle Marken gehören Rockstar Games."
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.getElementById('nav-about').innerText = translations[lang].navAbout;
+            document.getElementById('nav-details').innerText = translations[lang].navDetails;
+            document.getElementById('nav-editions').innerText = translations[lang].navEditions;
+            document.getElementById('hero-title').innerText = translations[lang].heroTitle;
+            document.getElementById('hero-desc').innerText = translations[lang].heroDesc;
+            document.getElementById('hero-btn').innerText = translations[lang].heroBtn;
+            document.getElementById('sect-release').innerText = translations[lang].sectRelease;
+            document.getElementById('card-rel-title').innerText = translations[lang].cardRelTitle;
+            document.getElementById('card-rel-desc').innerHTML = translations[lang].cardRelDesc;
+            document.getElementById('card-plat-title').innerText = translations[lang].cardPlatTitle;
+            document.getElementById('card-plat-desc').innerHTML = translations[lang].cardPlatDesc;
+            document.getElementById('card-load-title').innerText = translations[lang].cardLoadTitle;
+            document.getElementById('card-load-desc').innerHTML = translations[lang].cardLoadDesc;
+            document.getElementById('sect-features').innerText = translations[lang].sectFeatures;
+            document.getElementById('feat-heroes-title').innerText = translations[lang].featHeroesTitle;
+            document.getElementById('feat-heroes-desc').innerText = translations[lang].featHeroesDesc;
+            document.getElementById('feat-map-title').innerText = translations[lang].featMapTitle;
+            document.getElementById('feat-map-desc').innerText = translations[lang].featMapDesc;
+            document.getElementById('feat-tech-title').innerText = translations[lang].featTechTitle;
+            document.getElementById('feat-tech-desc').innerText = translations[lang].featTechDesc;
+            document.getElementById('sect-prices').innerText = translations[lang].sectPrices;
+            document.getElementById('badge-hit').innerText = translations[lang].badgeHit;
+            document.getElementById('btn-buy-std').innerText = translations[lang].btnBuyStd;
+            document.getElementById('btn-buy-ult').innerText = translations[lang].btnBuyUlt;
+            document.getElementById('std-f1').innerText = translations[lang].stdF1;
+            document.getElementById('std-f2').innerText = translations[lang].stdF2;
+            document.getElementById('std-f3').innerText = translations[lang].stdF3;
+            document.getElementById('std-f4').innerText = translations[lang].stdF4;
+            document.getElementById('ult-f1').innerText = translations[lang].ultF1;
+            document.getElementById('ult-f2').innerText = translations[lang].ultF2;
+            document.getElementById('ult-f3').innerText = translations[lang].ultF3;
+            document.getElementById('ult-f4').innerText = translations[lang].ultF4;
+            document.getElementById('ult-f5').innerText = translations[lang].ultF5;
+            document.getElementById('sect-note-title').innerText = translations[lang].sectNoteTitle;
+            document.getElementById('sect-note-desc').innerHTML = translations[lang].sectNoteDesc;
+            document.getElementById('footer-text').innerText = translations[lang].footerText;
+        }
+    </script>
+</body>
+</html>
